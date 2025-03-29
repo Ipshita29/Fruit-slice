@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import appleImg from './assets/apple.png';
+import bananaImg from './assets/banana.png';
+import orangeImg from './assets/orange.png';
+import watermelonImg from './assets/watermelon.png';
+import chiliImg from './assets/chilli.png';
 
 function App() {
   const [score, setScore] = useState(0);
@@ -7,44 +12,43 @@ function App() {
   const [gameActive, setGameActive] = useState(false);
   const [fruits, setFruits] = useState([]);
   const [gameShaking, setGameShaking] = useState(false);
-  const [gameOver, setGameOver] = useState(false); // Track game over state
+  const [gameOver, setGameOver] = useState(false);
 
   const fruitTypes = [
-    { name: 'apple', points: 1, image: 'apple.png' },
-    { name: 'banana', points: 2, image: 'banana.png' },
-    { name: 'orange', points: 3, image: 'orange.png' },
-    { name: 'watermelon', points: 5, image: 'watermelon.png' },
-    { name: 'chili', points: 0, image: 'chili.png' },
+    { name: 'apple', points: 1, image: appleImg },
+    { name: 'banana', points: 2, image: bananaImg },
+    { name: 'orange', points: 3, image: orangeImg },
+    { name: 'watermelon', points: 5, image: watermelonImg },
+    { name: 'chili', points: 0, image: chiliImg }, 
   ];
 
-  // Start game function
+  
   const startGame = () => {
     setScore(0);
-    setTimeLeft(30);
+    setTimeLeft(20);
     setGameActive(true);
-    setGameOver(false); // Reset game over state
+    setGameOver(false); 
     setFruits([]);
   };
 
-  // Handle slicing the fruit
+
   const sliceFruit = (id, type) => {
     if (!gameActive) return;
 
     if (type === 'chili') {
+      setGameActive(false);
+      setGameOver(true); 
       setGameShaking(true);
-      setTimeout(() => setGameShaking(false), 500); // Shake effect for 0.5s
+      setTimeout(() => setGameShaking(false), 500);
     } else {
       const fruitToSlice = fruits.find((fruit) => fruit.id === id);
       if (fruitToSlice) {
         setScore((prev) => prev + fruitToSlice.points);
       }
     }
-
-    // Remove sliced fruit
     setFruits((prev) => prev.filter((fruit) => fruit.id !== id));
   };
 
-  // Spawn fruits faster by reducing interval time (to 600ms)
   useEffect(() => {
     if (!gameActive) return;
 
@@ -61,12 +65,11 @@ function App() {
         };
         setFruits((prev) => [...prev, newFruit]);
       }
-    }, 600); // Spawn fruits faster
+    }, 600); 
 
     return () => clearInterval(spawnInterval);
   }, [gameActive, fruits.length]);
 
-  // Game timer and "Game Over" handling
   useEffect(() => {
     if (!gameActive || timeLeft <= 0) return;
 
@@ -74,7 +77,7 @@ function App() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           setGameActive(false);
-          setGameOver(true); // Show "Game Over" message
+          setGameOver(true);
           return 0;
         }
         return prev - 1;
@@ -107,7 +110,7 @@ function App() {
           {fruits.map((fruit) => (
             <img
               key={fruit.id}
-              src={`/images/${fruit.image}`}
+              src={fruit.image}
               alt={fruit.type}
               className="fruit"
               style={{
