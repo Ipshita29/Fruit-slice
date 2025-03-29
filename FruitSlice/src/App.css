@@ -1,0 +1,81 @@
+/* Overall container */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #282c34;
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
+
+/* Title styling */
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #ff6347;
+}
+
+/* Start screen */
+.start-screen {
+  text-align: center;
+}
+
+.start-screen button {
+  background-color: #28a745;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.start-screen button:hover {
+  background-color: #218838;
+}
+
+.start-screen p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/* Game info (score and timer) */
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Game area */
+.game-area {
+  width: 400px;
+  height: 500px;
+  background-color: #87cefa;
+  border-radius: 10px;
+  border: 3px solid #333;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Fruit styling */
+.fruit {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
